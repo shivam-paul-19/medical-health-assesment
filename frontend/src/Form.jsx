@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './Form.css';
-import axios from "axios"
+import axios from "axios";
 
-const Form = () => {
+const Form = ({getOutput}) => {
   const [formData, setFormData] = useState({
     // Personal Details
     age: '',
@@ -178,6 +178,7 @@ const Form = () => {
       console.log(processedData);
       let response = await axios.post("http://localhost:5000/predict", processedData);
       console.log(response)
+      getOutput(response.data)
     } else {
       alert('Please fix the errors in the form');
     }

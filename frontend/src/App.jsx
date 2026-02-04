@@ -1,9 +1,9 @@
-import Form from './Form'
+import FormPage from './FormPage'
 
 function App() {
   return (
     <>
-      <Form />
+      <FormPage />
     </>
   )
 }
