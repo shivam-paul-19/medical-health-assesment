@@ -225,6 +225,45 @@
     transform: translateY(-1px);
 }
 
+/* drawer */
+.drawer-content {
+    display: flex;
+    justify-content: center;
+}
+
+.output-icons {
+    height: 70px;
+}
+
+.output-box {
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+}
+
+.output-box-inner {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    text-align: center;
+}
+
+.output-content h2 {
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.output-content {
+    font-family: "Dosis", sans-serif;;
+}
+
+.spinner {
+    width: 25%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 /* Animations */
 @keyframes fadeInDown {
     from {

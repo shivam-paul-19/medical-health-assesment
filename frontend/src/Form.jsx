@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Form.css';
 import axios from "axios";
 
-const Form = ({getOutput}) => {
+const Form = ({getOutput, open, load}) => {
   const [formData, setFormData] = useState({
     // Personal Details
     age: '',
@@ -164,7 +164,7 @@ const Form = ({getOutput}) => {
         sleepDuration: formData.sleepDuration ? Number(formData.sleepDuration) : '',
         sleepQuality: formData.sleepQuality ? Number(formData.sleepQuality) : '',
         dailySteps: formData.dailySteps ? Number(formData.dailySteps) : '',
-        physicalActivityDuration: formData.physicalActivityDuration ? Number(formData.physicalActivityDuration) : '',
+        physicalActivityDuration: formData.physicalActivityDuration ? Number(formData.physicalActivityDuration) : 0,
         
         // Mental & Physical Well-being
         physicalHealth: formData.physicalHealth ? Number(formData.physicalHealth) : '',
@@ -175,7 +175,8 @@ const Form = ({getOutput}) => {
         urineAlbuminCreatinineRatio: formData.urineAlbuminCreatinineRatio ? Number(formData.urineAlbuminCreatinineRatio) : ''
       };
       
-      console.log(processedData);
+      open(true);
+      load(true);
       let response = await axios.post("http://localhost:5000/predict", processedData);
       console.log(response)
       getOutput(response.data)
