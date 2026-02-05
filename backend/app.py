@@ -237,7 +237,7 @@ def predict():
         print(output)
         return jsonify({
             "heart": int(output["Heart"]),
-            "Sleep": int(output["Sleep"]),
+            "sleep": int(output["Sleep"]),
             "metabolism": int(output["Metabolism"])
         }), 200
     else:
