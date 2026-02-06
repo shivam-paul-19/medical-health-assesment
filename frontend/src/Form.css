@@ -102,7 +102,38 @@
     gap: 0.25rem;
 }
 
-.form-field input, .form-field select {
+/* Field Label with Hover Card */
+.field-label-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-icon {
+    color: #fda5d5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.info-icon:hover {
+    color: #fb64b6;
+    transform: scale(1.1);
+}
+
+/* Hover Card Content Styling */
+.hover-card-content {
+    background: #1a1a2e !important;
+    border: 1px solid #e60076 !important;
+    color: #f3f4f6 !important;
+    font-size: 0.875rem;
+    font-weight: 400;
+    max-width: 250px;
+    box-shadow: 0 4px 20px rgba(230, 0, 118, 0.3) !important;
+}
+
+.form-field input,
+.form-field select {
     padding: 0.875rem 1rem;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -254,7 +285,8 @@
 }
 
 .output-content {
-    font-family: "Dosis", sans-serif;;
+    font-family: "Dosis", sans-serif;
+    ;
 }
 
 .spinner {
@@ -342,6 +374,30 @@
     .radio-group {
         gap: 1rem;
     }
+
+    /* Drawer Responsive Styles */
+    .output-box {
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+    }
+
+    .output-box-inner {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .output-icons {
+        height: 50px;
+    }
+
+    .output-content h2 {
+        font-size: 20px;
+    }
+
+    .output-content p {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -360,6 +416,23 @@
     .optional-badge {
         font-size: 0.65rem;
         padding: 0.2rem 0.6rem;
+    }
+
+    /* Additional Drawer Responsive Styles for Small Screens */
+    .output-icons {
+        height: 40px;
+    }
+
+    .output-content h2 {
+        font-size: 18px;
+    }
+
+    .output-content p {
+        font-size: 0.85rem;
+    }
+
+    .spinner {
+        width: 80%;
     }
 }
 

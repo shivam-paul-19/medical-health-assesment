@@ -3,7 +3,6 @@ import pickle
 import pandas as pd
 from flask_cors import CORS
 from abc import ABC, abstractmethod
-from typing import final
 
 app = Flask(__name__)
 CORS(app)
@@ -261,3 +260,6 @@ def testpost():
         return jsonify({
             "status": "problem in data",
         }), 400
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=False)

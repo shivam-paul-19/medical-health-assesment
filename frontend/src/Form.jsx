@@ -1,6 +1,66 @@
 import { useState } from 'react';
 import './Form.css';
 import axios from "axios";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { Info } from "lucide-react";
+
+// Field descriptions for hover cards
+const fieldDescriptions = {
+  age: "Your current age in years",
+  gender: "Biological sex assigned at birth",
+  race: "Your racial or ethnic background",
+  occupation: "Your current job or profession",
+  height: "Your height measured in centimeters",
+  weight: "Your body weight in kilograms",
+  systolicBP: "Top blood pressure reading measurement",
+  diastolicBP: "Bottom blood pressure reading measurement",
+  heartRate: "Resting heart beats per minute",
+  sleepDuration: "Average hours of sleep nightly",
+  sleepQuality: "Rate your sleep quality subjectively on a scale of 1 (extermely poor) to 10 (excellent)",
+  dailySteps: "Average steps walked per day",
+  physicalActivity: "Do you exercise regularly weekly",
+  physicalActivityDuration: "Minutes of daily physical activity",
+  smoking: "Current or past smoking habits",
+  alcoholDrinking: "Regular alcohol consumption status currently",
+  physicalHealth: "Days feeling physically unwell monthly",
+  mentalHealth: "Days feeling mentally unwell monthly",
+  stressLevel: "Current perceived stress level rating on a scale of 1 (no stress) to 10 (extremely high stress)",
+  genHealth: "Overall self-assessment of health status",
+  diffWalking: "Difficulty walking or climbing stairs",
+  stroke: "History of stroke or TIA",
+  diabetic: "Diabetes or pre-diabetes diagnosis status",
+  asthma: "Current or past asthma diagnosis",
+  kidneyDisease: "Chronic kidney disease diagnosis history",
+  skinCancer: "History of skin cancer diagnosis",
+  goodCholesterol: "HDL cholesterol level category status",
+  uricAcidCategory: "Uric acid blood level category",
+  albuminuria: "Protein presence in urine test",
+  urineAlbuminCreatinineRatio: "Kidney function indicator ratio measurement",
+  trigCategory: "Triglyceride blood level category status"
+};
+
+// Reusable FieldLabel component with hover card
+const FieldLabel = ({ htmlFor, children, fieldName }) => {
+  const description = fieldDescriptions[fieldName];
+  
+  if (!description) {
+    return <label htmlFor={htmlFor}>{children}</label>;
+  }
+  
+  return (
+    <label htmlFor={htmlFor} className="field-label-wrapper">
+      {children}
+      <HoverCard openDelay={100} closeDelay={200}>
+        <HoverCardTrigger asChild>
+          <Info className="info-icon" size={16} />
+        </HoverCardTrigger>
+        <HoverCardContent side="top" align="start" className="hover-card-content">
+          {description}
+        </HoverCardContent>
+      </HoverCard>
+    </label>
+  );
+};
 
 const Form = ({getOutput, open, load}) => {
   const [formData, setFormData] = useState({
@@ -177,7 +237,7 @@ const Form = ({getOutput, open, load}) => {
       
       open(true);
       load(true);
-      let response = await axios.post("http://localhost:5000/predict", processedData);
+      let response = await axios.post("https://medicalback.mooo.com/predict", processedData);
       console.log(response)
       getOutput(response.data)
     } else {
@@ -199,7 +259,7 @@ const Form = ({getOutput, open, load}) => {
           <h2>🧑 Personal Details</h2>
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="age">Age *</label>
+              <FieldLabel htmlFor="age" fieldName="age">Age *</FieldLabel>
               <input
                 type="number"
                 id="age"
@@ -214,7 +274,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="gender">Gender *</label>
+              <FieldLabel htmlFor="gender" fieldName="gender">Gender *</FieldLabel>
               <select
                 id="gender"
                 name="gender"
@@ -229,7 +289,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="race">Race *</label>
+              <FieldLabel htmlFor="race" fieldName="race">Race *</FieldLabel>
               <select
                 id="race"
                 name="race"
@@ -248,7 +308,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="occupation">Occupation *</label>
+              <FieldLabel htmlFor="occupation" fieldName="occupation">Occupation *</FieldLabel>
               <select
                 id="occupation"
                 name="occupation"
@@ -279,7 +339,7 @@ const Form = ({getOutput, open, load}) => {
           <h2>📏 Body & Basic Measurements</h2>
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="height">Height (cm) *</label>
+              <FieldLabel htmlFor="height" fieldName="height">Height (cm) *</FieldLabel>
               <input
                 type="number"
                 id="height"
@@ -294,7 +354,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="weight">Weight (kg) *</label>
+              <FieldLabel htmlFor="weight" fieldName="weight">Weight (kg) *</FieldLabel>
               <input
                 type="number"
                 id="weight"
@@ -309,7 +369,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="systolicBP">Systolic BP (mmHg) *</label>
+              <FieldLabel htmlFor="systolicBP" fieldName="systolicBP">Systolic BP (mmHg) *</FieldLabel>
               <input
                 type="number"
                 id="systolicBP"
@@ -324,7 +384,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="diastolicBP">Diastolic BP (mmHg) *</label>
+              <FieldLabel htmlFor="diastolicBP" fieldName="diastolicBP">Diastolic BP (mmHg) *</FieldLabel>
               <input
                 type="number"
                 id="diastolicBP"
@@ -339,7 +399,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="heartRate">Heart Rate (bpm) *</label>
+              <FieldLabel htmlFor="heartRate" fieldName="heartRate">Heart Rate (bpm) *</FieldLabel>
               <input
                 type="number"
                 id="heartRate"
@@ -360,7 +420,7 @@ const Form = ({getOutput, open, load}) => {
           <h2>🛌 Sleep & Daily Routine</h2>
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="sleepDuration">Sleep Duration (hrs) *</label>
+              <FieldLabel htmlFor="sleepDuration" fieldName="sleepDuration">Sleep Duration (hrs) *</FieldLabel>
               <input
                 type="number"
                 id="sleepDuration"
@@ -376,7 +436,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="sleepQuality">Sleep Quality (1-10) *</label>
+              <FieldLabel htmlFor="sleepQuality" fieldName="sleepQuality">Sleep Quality (1-10) *</FieldLabel>
               <input
                 type="number"
                 id="sleepQuality"
@@ -391,7 +451,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="dailySteps">Daily Steps *</label>
+              <FieldLabel htmlFor="dailySteps" fieldName="dailySteps">Daily Steps *</FieldLabel>
               <input
                 type="number"
                 id="dailySteps"
@@ -406,7 +466,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="physicalActivity">Physical Activity *</label>
+              <FieldLabel htmlFor="physicalActivity" fieldName="physicalActivity">Physical Activity *</FieldLabel>
               <select
                 id="physicalActivity"
                 name="physicalActivity"
@@ -421,7 +481,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="physicalActivityDuration">Physical Activity Duration (min/day) *</label>
+              <FieldLabel htmlFor="physicalActivityDuration" fieldName="physicalActivityDuration">Physical Activity Duration (min/day) *</FieldLabel>
               <input
                 type="number"
                 id="physicalActivityDuration"
@@ -443,7 +503,7 @@ const Form = ({getOutput, open, load}) => {
           <h2>🚬 Habits & Lifestyle Choices</h2>
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="smoking">Smoking *</label>
+              <FieldLabel htmlFor="smoking" fieldName="smoking">Smoking *</FieldLabel>
               <select
                 id="smoking"
                 name="smoking"
@@ -458,7 +518,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="alcoholDrinking">Alcohol Drinking *</label>
+              <FieldLabel htmlFor="alcoholDrinking" fieldName="alcoholDrinking">Alcohol Drinking *</FieldLabel>
               <select
                 id="alcoholDrinking"
                 name="alcoholDrinking"
@@ -479,7 +539,7 @@ const Form = ({getOutput, open, load}) => {
           <h2>🧠 Mental & Physical Well-being</h2>
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="physicalHealth">Physical Health (days) *</label>
+              <FieldLabel htmlFor="physicalHealth" fieldName="physicalHealth">Physical Health (days) *</FieldLabel>
               <input
                 type="number"
                 id="physicalHealth"
@@ -494,7 +554,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="mentalHealth">Mental Health (days) *</label>
+              <FieldLabel htmlFor="mentalHealth" fieldName="mentalHealth">Mental Health (days) *</FieldLabel>
               <input
                 type="number"
                 id="mentalHealth"
@@ -509,7 +569,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="stressLevel">Stress Level (1-10) *</label>
+              <FieldLabel htmlFor="stressLevel" fieldName="stressLevel">Stress Level (1-10) *</FieldLabel>
               <input
                 type="number"
                 id="stressLevel"
@@ -524,7 +584,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="genHealth">General Health *</label>
+              <FieldLabel htmlFor="genHealth" fieldName="genHealth">General Health *</FieldLabel>
               <select
                 id="genHealth"
                 name="genHealth"
@@ -542,7 +602,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="diffWalking">Difficulty Walking *</label>
+              <FieldLabel htmlFor="diffWalking" fieldName="diffWalking">Difficulty Walking *</FieldLabel>
               <select
                 id="diffWalking"
                 name="diffWalking"
@@ -563,7 +623,7 @@ const Form = ({getOutput, open, load}) => {
           <h2>🧬 Past Diseases / Health Conditions</h2>
           <div className="form-grid radio-grid">
             <div className="form-field radio-field">
-              <label>Stroke *</label>
+              <FieldLabel fieldName="stroke">Stroke *</FieldLabel>
               <div className="radio-group">
                 <label className="radio-label">
                   <input
@@ -590,7 +650,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field radio-field">
-              <label>Diabetic *</label>
+              <FieldLabel fieldName="diabetic">Diabetic *</FieldLabel>
               <div className="radio-group">
                 <label className="radio-label">
                   <input
@@ -627,7 +687,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field radio-field">
-              <label>Asthma *</label>
+              <FieldLabel fieldName="asthma">Asthma *</FieldLabel>
               <div className="radio-group">
                 <label className="radio-label">
                   <input
@@ -654,7 +714,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field radio-field">
-              <label>Kidney Disease *</label>
+              <FieldLabel fieldName="kidneyDisease">Kidney Disease *</FieldLabel>
               <div className="radio-group">
                 <label className="radio-label">
                   <input
@@ -681,7 +741,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field radio-field">
-              <label>Skin Cancer *</label>
+              <FieldLabel fieldName="skinCancer">Skin Cancer *</FieldLabel>
               <div className="radio-group">
                 <label className="radio-label">
                   <input
@@ -714,7 +774,7 @@ const Form = ({getOutput, open, load}) => {
           <h2>🧪 Clinical & Lab-related Indicators (Required)</h2>
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="goodCholesterol">Good Cholesterol *</label>
+              <FieldLabel htmlFor="goodCholesterol" fieldName="goodCholesterol">Good Cholesterol *</FieldLabel>
               <select
                 id="goodCholesterol"
                 name="goodCholesterol"
@@ -729,7 +789,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="uricAcidCategory">Uric Acid Category *</label>
+              <FieldLabel htmlFor="uricAcidCategory" fieldName="uricAcidCategory">Uric Acid Category *</FieldLabel>
               <select
                 id="uricAcidCategory"
                 name="uricAcidCategory"
@@ -750,7 +810,7 @@ const Form = ({getOutput, open, load}) => {
           <h2>🧪 Clinical & Lab-related Indicators <span className="optional-badge">Optional</span></h2>
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="albuminuria">Albuminuria</label>
+              <FieldLabel htmlFor="albuminuria" fieldName="albuminuria">Albuminuria</FieldLabel>
               <select
                 id="albuminuria"
                 name="albuminuria"
@@ -764,7 +824,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="urineAlbuminCreatinineRatio">Urine Albumin-Creatinine Ratio (mg/g)</label>
+              <FieldLabel htmlFor="urineAlbuminCreatinineRatio" fieldName="urineAlbuminCreatinineRatio">Urine Albumin-Creatinine Ratio (mg/g)</FieldLabel>
               <input
                 type="number"
                 id="urineAlbuminCreatinineRatio"
@@ -778,7 +838,7 @@ const Form = ({getOutput, open, load}) => {
             </div>
 
             <div className="form-field">
-              <label htmlFor="trigCategory">Triglyceride Category</label>
+              <FieldLabel htmlFor="trigCategory" fieldName="trigCategory">Triglyceride Category</FieldLabel>
               <select
                 id="trigCategory"
                 name="trigCategory"
