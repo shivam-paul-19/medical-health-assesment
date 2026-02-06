@@ -83,14 +83,14 @@ function FormPage() {
     <>
     <Form getOutput={getOutput} open={setOpen} load={setLoading}/>
       <Drawer open={open} onOpenChange={setOpen} className="dr">
-          <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-[50vh] data-[vaul-drawer-direction=top]:max-h-[50vh]">
-            <DrawerHeader>
+          <DrawerContent>
+            <DrawerHeader className="flex-shrink-0">
               <DrawerTitle>Your Health Report</DrawerTitle>
               <DrawerDescription>
                 Based on the information given by you
               </DrawerDescription>
             </DrawerHeader>
-            <div className="drawer-content">
+            <div className="drawer-content flex-1 overflow-y-auto px-4 pb-4">
             {
               loading? (
                 <div className="spinner">
@@ -98,7 +98,7 @@ function FormPage() {
                   <p>Loading, it may take some some seconds</p>
                 </div>
               ) : (
-                <div className="overflow-y-auto px-4 output-box">
+                <div className="output-box">
                   <div className="output-box-inner">
                     <img src={heartIcon} alt="" className="output-icons"/>
                     &nbsp;&nbsp;&nbsp;
@@ -127,9 +127,9 @@ function FormPage() {
               )
             }
             </div>
-            <DrawerFooter>
+            <DrawerFooter className="flex-shrink-0 sticky bottom-0 bg-background border-t">
               <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">Close</Button>
               </DrawerClose>
             </DrawerFooter>
           </DrawerContent>

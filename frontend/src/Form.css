@@ -258,18 +258,19 @@
 
 /* drawer */
 .drawer-content {
-    display: flex;
-    justify-content: center;
+    min-height: 0;
 }
 
 .output-icons {
     height: 70px;
+    flex-shrink: 0;
 }
 
 .output-box {
     display: flex;
-    width: 95%;
+    width: 100%;
     justify-content: space-between;
+    gap: 1rem;
 }
 
 .output-box-inner {
@@ -286,14 +287,21 @@
 
 .output-content {
     font-family: "Dosis", sans-serif;
-    ;
+}
+
+.output-content p {
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 .spinner {
-    width: 25%;
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    gap: 1rem;
+    padding: 2rem;
 }
 
 /* Animations */
@@ -385,6 +393,9 @@
     .output-box-inner {
         width: 100%;
         padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.02);
     }
 
     .output-icons {
@@ -392,11 +403,12 @@
     }
 
     .output-content h2 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .output-content p {
-        font-size: 0.9rem;
+        font-size: 0.875rem;
+        line-height: 1.4;
     }
 }
 
@@ -420,19 +432,25 @@
 
     /* Additional Drawer Responsive Styles for Small Screens */
     .output-icons {
-        height: 40px;
+        height: 45px;
     }
 
     .output-content h2 {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .output-content p {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+
+    .output-box-inner {
+        padding: 0.75rem;
     }
 
     .spinner {
-        width: 80%;
+        width: 100%;
+        padding: 1.5rem;
     }
 }
 
